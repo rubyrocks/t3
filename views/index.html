@@ -1,0 +1,131 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>t3</title>
+  <meta name="description" content="t3">
+  <meta name="author" content="">
+
+    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<style>
+		body {
+		    background-color: #000000
+		} 
+
+		h1 {
+		    color: #ffffff
+		}
+
+		html {
+		    color: #ffffff
+		}
+
+		a {
+		    color: #ffffff
+		}
+	</style>
+
+</head>
+
+<body>
+
+    <script>
+
+        var totalFeeds = 3;
+        var feedData = [];
+
+		function displayFeeds()
+		{
+             for ( var i = 0; i < totalFeeds; i++)
+             {
+                   renderRSSFeed(i);
+             }
+		}
+
+	    function renderRSSFeed( rssFeedId )
+	    {
+            var server = 'localhost';
+            var port = '3000';
+            var feedData = '';
+
+			$(document).ready(function() {
+			    $.ajax({
+			        url: 'http://' + server + ":" + port + '/' + rssFeedId,
+			        dataType: "json",
+			        jsonpCallback: "_rssFeedCallBack",
+			        cache: false,
+			        timeout: 5000,
+			        success: function(data) {
+			            console.log(data);
+			            var htmlFeed = "#" + rssFeedId;
+			            var vhtml = '<p>';
+			            
+                        $.each(data, function (i, e) {
+                       
+                               vhtml = vhtml + e.date + ' - ';
+                               vhtml = vhtml + e.time + ' - ';
+                               vhtml = vhtml + e.title;
+                               vhtml = vhtml + '<br>';
+		                });
+		                vhtml = vhtml + '</p>'
+
+			            $(htmlFeed).html(vhtml);
+			        },
+			        error: function(jqXHR, textStatus, err) {
+			            console.log('error ' + textStatus + " " + err);
+			        }
+			    });
+			});
+	    }
+
+		$(document).ready(function() 
+		{
+		    displayFeeds();
+		});
+    </script>
+	
+ <center><h1>T3</h1></center>
+
+<table>
+	<tr>
+		<td>
+			<p><b>Top</b></p>
+			<div id="0">
+			</div>
+			<br>
+			<a href="http://rss.cnn.com/rss/cnn_topstories.rss">Top Source</a>
+		</td>
+	</tr>
+    <br>
+	<tr>
+		    <p><b>Tech</b></p>
+			<div id="1">
+			</div>
+			<br>
+			<a href="http://feeds.feedburner.com/TechCrunchIT">Tech Source</a>
+			<br>
+			<a href="http://feeds.feedburner.com/TechCrunch/Amazon">Amazon Tech</a>
+			<br>
+			<a href="http://feeds.feedburner.com/TechCrunch/Facebook">Facebook Tech</a>
+			<br>
+			<a href="http://feeds.feedburner.com/TechCrunch/Google">Google Tech</a>
+			<br>
+			<a href="http://feeds.feedburner.com/TechCrunch/Microsoft">Microsoft Tech</a>			
+
+	</tr>
+	<br>
+	<tr>
+		<td>
+			<p><b>Weather</b></p>
+			<div id="2">
+			</div>
+		</td>
+	</tr>		
+</table>
+
+
+</body>
+</html>
