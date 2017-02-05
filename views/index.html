@@ -54,7 +54,7 @@
 			$(document).ready(function() {
 			    $.ajax({
 			        url: 'http://' + server + ":" + port + '/' + rssFeedId,
-			        dataType: "json",
+			        dataType: "jsonp",
 			        jsonpCallback: "_rssFeedCallBack",
 			        cache: false,
 			        timeout: 5000,
