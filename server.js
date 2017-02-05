@@ -27,6 +27,7 @@ var server = app.listen(3000, function () {
   var port = server.address().port
 
   app.use('/', express.static(__dirname + '/views'));
+  app.use('/lib', express.static(__dirname + '/lib'));
 
   console.log("Example app listening at http://%s:%s", host, port)
 
